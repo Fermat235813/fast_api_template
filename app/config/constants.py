@@ -9,7 +9,8 @@ coming soon
 
 TAGS_METADATA = [
     {
-        "name": "generic",
-        "description": "Test meta-tag for displaying description of operations.",
+        "name": "settings",
+        "description": "This endpoint is to show all configuration "
+        "attributes and current values",
     }
 ]

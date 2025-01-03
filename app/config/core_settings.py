@@ -17,6 +17,7 @@ class CoreSettings(BaseSettings):
     OPENAPI_URL: str = "/openapi.json"
     REDOC_URL: str = "/redoc"
     OPENAPI_PREFIX: str = ""
+    ENVIRONMENT: str | None = None
     OPENAPI_TAGS: list[dict[str, str]] | None = TAGS_METADATA
 
     SERVER_HOST: str = decouple.config("SERVER_HOST", cast=str)
