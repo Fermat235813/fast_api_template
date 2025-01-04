@@ -10,4 +10,7 @@ config_router = APIRouter()
 
 @config_router.get("/settings")
 async def get_current_config() -> Mapping[str, Any]:
+    """
+    Return all current values based on .env file.
+    """
     return vars(settings)
