@@ -30,9 +30,7 @@ def get_settings() -> CoreSettings:
     """
     Set LRU-Cache, so the most likely environment will get.
     """
-    return ConfigFactory(
-        environment=decouple.config("ENVIRONMENT", default="DEV", cast=str)
-    )()
+    return ConfigFactory(environment=decouple.config("ENVIRONMENT", default="DEV", cast=str))()
 
 
 settings: CoreSettings = get_settings()
