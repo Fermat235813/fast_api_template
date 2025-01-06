@@ -1,0 +1,34 @@
+services:
+  web:
+    container_name: ccsds_catalogue
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fastapi.rule=Host(`fastapi.localhost`)"
+
+  traefik:
+    image: traefik:v3.2.3
+    container_name: ccds_catalogue_traefik
+    ports:
+      - "8008:80"
+      - "8081:8080"
+    volumes:
+      - "./traefik.dev.toml:/etc/traefik/traefik.toml"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  db:
+    image: postgres:17-alpine
+    container_name: ccsds_catalogue_postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+
+volumes:
+    postgres_data:
