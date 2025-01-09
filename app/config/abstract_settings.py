@@ -1,12 +1,10 @@
-import logging
-
 import decouple
-from pydantic_settings import BaseSettings
 
+from pydantic_settings import BaseSettings
 from app.config.constants import PROJECT_DESCRIPTION, TAGS_METADATA
 
 
-class CoreSettings(BaseSettings):
+class AbstractSettings(BaseSettings):
     TITLE: str = "TEMPLATE"
     VERSION: str = "0.1.0"
     DESCRIPTION: str | None = PROJECT_DESCRIPTION
@@ -40,8 +38,6 @@ class CoreSettings(BaseSettings):
     SERVER_PORT: int = decouple.config("SERVER_PORT", cast=int)
     SERVER_WORKERS: int = decouple.config("SERVER_WORKERS", cast=int)
 
-    LOGGING_LEVEL: int = logging.INFO
-    LOGGERS: tuple[str, str] = ("uvicorn.asgi", "uvicorn.access")
 
     @property
     def set_app_attributes(self) -> dict[str, str | bool | None]:

@@ -1,8 +1,8 @@
-from app.config.core_settings import CoreSettings
+from app.config.abstract_settings import AbstractSettings
 from app.config.environment import Environment
 
 
-class DevSettings(CoreSettings):
+class DevSettings(AbstractSettings):
     """
     DevSettings which overrides the default settings.
     """
