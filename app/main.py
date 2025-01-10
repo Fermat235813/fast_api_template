@@ -6,15 +6,6 @@ from app.events import (
     terminate_backend_server_event_handler,
 )
 from app.router import api_router
-from app.logging.app_logger import log_queue_listener
-from contextlib import asynccontextmanager
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    yield
-    ## Stop listening in queue
-    log_queue_listener.stop()
 
 
 def initialize_application() -> FastAPI:
