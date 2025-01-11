@@ -7,7 +7,6 @@ from app.events import (
 )
 from app.router import api_router
 
-
 def initialize_application() -> FastAPI:
     """
     This function initializes the FastAPI application. Therefore,
@@ -20,6 +19,8 @@ def initialize_application() -> FastAPI:
     init.add_event_handler("shutdown",terminate_backend_server_event_handler())
     return init
 
+
+app: FastAPI = initialize_application()
 
 if __name__ == "__main__":
     uvicorn.run(

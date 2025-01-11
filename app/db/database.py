@@ -1,6 +1,6 @@
 import pydantic
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
-from sqlalchemy.pool import Pool, QueuePool
+from sqlalchemy.pool import Pool, AsyncAdaptedQueuePool
 
 from app.config.config_factory import settings
 from app.config.utils import define_async_postgres_url, define_postgres_url
@@ -18,7 +18,7 @@ class AsyncDatabase:
             echo=settings.IS_DB_ECHO_LOG,
             pool_size=settings.DB_POOL_SIZE,
             max_overflow=settings.DB_POOL_OVERFLOW,
-            poolclass=QueuePool,
+            poolclass=AsyncAdaptedQueuePool,
         )
         self.async_session: AsyncSession = AsyncSession(bind=self.async_engine)
         self.pool: Pool = self.async_engine.pool
