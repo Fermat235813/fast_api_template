@@ -17,7 +17,6 @@ async def initialize_db_connection() -> None:
         await initialize_db_tables(connection=connection)
 
 
-
 async def dispose_db_connection() -> None:
 
     await async_db.async_engine.dispose()
