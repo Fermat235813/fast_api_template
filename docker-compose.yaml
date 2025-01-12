@@ -1,6 +1,8 @@
 services:
   web:
-    container_name: ccsds_catalogue
+    profiles:
+      - prod
+    container_name: vidar_catalogue
     build: .
     volumes:
       - .:/app
@@ -11,8 +13,10 @@ services:
       - "traefik.http.routers.fastapi.rule=Host(`fastapi.localhost`)"
 
   traefik:
+    profiles:
+      - prod
     image: traefik:v3.2.3
-    container_name: ccds_catalogue_traefik
+    container_name: vidar_catalogue_traefik
     ports:
       - "8008:80"
       - "8081:8080"
@@ -21,8 +25,11 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   db:
+    profiles:
+      - prod
+      - dev
     image: postgres:17-alpine
-    container_name: ccsds_catalogue_postgres
+    container_name: vidar_catalogue_db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     ports:
