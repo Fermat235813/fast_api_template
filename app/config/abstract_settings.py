@@ -38,6 +38,13 @@ class AbstractSettings(BaseSettings):
     SERVER_PORT: int = decouple.config("SERVER_PORT", cast=int)
     SERVER_WORKERS: int = decouple.config("SERVER_WORKERS", cast=int)
 
+    LOG_LEVEL: str = decouple.config("LOG_LEVEL", cast=str)
+    LOG_FILE_PATH: str = decouple.config("LOG_FILE_PATH", cast=str)
+    LOG_FORMAT_PATTERN: str = decouple.config("LOG_FORMAT_PATTERN", cast=str)
+    LOG_FILE: bool = decouple.config("LOG_FILE", cast=bool)
+    LOG_CONSOLE: bool = decouple.config("LOG_CONSOLE", cast=bool)
+    LOG_QUEUE: bool = decouple.config("LOG_QUEUE", cast=bool)
+
 
     @property
     def set_app_attributes(self) -> dict[str, str | bool | None]:

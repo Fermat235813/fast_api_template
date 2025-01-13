@@ -2,20 +2,12 @@ import uvicorn
 from fastapi import FastAPI
 from app.config.config_factory import settings
 from app.logging.log_middleware import LogMiddleware
-from app.logging.app_logger import log_queue_listener
-from contextlib import asynccontextmanager
+
 from app.events import (
     execute_backend_server_event_handler,
     terminate_backend_server_event_handler,
 )
 from app.router import api_router
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    yield
-    ## Stop listening in queue
-    log_queue_listener.stop()
 
 
 def initialize_application() -> FastAPI:
@@ -24,7 +16,7 @@ def initialize_application() -> FastAPI:
     configuration is set and db - connection will be established.
     """
 
-    init = FastAPI(lifespan=lifespan,**settings.set_app_attributes) # type: ignore
+    init = FastAPI(**settings.set_app_attributes) # type: ignore
 
     # add middleware
     init.add_middleware(LogMiddleware)
