@@ -44,6 +44,7 @@ class AbstractSettings(BaseSettings):
     LOG_FILE: bool = decouple.config("LOG_FILE", cast=bool)
     LOG_CONSOLE: bool = decouple.config("LOG_CONSOLE", cast=bool)
     LOG_QUEUE: bool = decouple.config("LOG_QUEUE", cast=bool)
+    LOG_QUEUE_MAX_SIZE: int = decouple.config("LOG_QUEUE_MAX_SIZE", cast=int)
 
 
     @property
