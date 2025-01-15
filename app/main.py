@@ -1,12 +1,21 @@
+"""main
+
+Main class of application
+
+functions:
+
+    * initialize_application - adding middleware, handler and including router
+    for this application
+
+Classification: Unclassified
+Autor: Lothar Janssen
+"""
 import uvicorn
 from fastapi import FastAPI
-from app.config.config_factory import settings
-from app.logging.log_middleware import LogMiddleware
+from app.config.service import settings
+from app.logging.dependencies import LogMiddleware
 
-from app.events import (
-    execute_backend_server_event_handler,
-    terminate_backend_server_event_handler,
-)
+from app.events import (execute_backend_server_event_handler,terminate_backend_server_event_handler)
 from app.router import api_router
 
 
@@ -33,6 +42,7 @@ def initialize_application() -> FastAPI:
 app: FastAPI = initialize_application()
 
 if __name__ == "__main__":
+
     uvicorn.run(
         app="main:app",
         host=settings.SERVER_HOST,
