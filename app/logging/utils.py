@@ -1,3 +1,14 @@
+"""utils
+
+Class to filter sensitive information like ip and password
+
+classes:
+
+    * SensitiveDataFilter - class for filtering sensitive data in a LogRecord object
+
+Classification: Unclassified
+Autor: Lothar Janssen
+"""
 import logging
 import re
 
@@ -13,14 +24,25 @@ class SensitiveDataFilter(logging.Filter):
     TOKEN_PATTERN = rf"token=([^;]+)"
 
     def filter(self, record) -> bool:
+        """
+        method to filter sensitive data
+        :param record: log record which to filter
+        :return: bool resulting from filtering
+        """
         try:
             record.args = self.mask_sensitive_args(record.args)
             record.msg = self.mask_sensitive_msg(record.msg)
             return True
         except Exception as e:
+            # not useful to generate log outside filter, so always return true
             return True
 
     def mask_sensitive_args(self, args):
+        """
+        method to mask sensitive data
+        :param args: elements to filter sensitive data
+        :return: masked sensitive attributes
+        """
         if isinstance(args, dict):
             new_args = args.copy()
             for key in args.keys():
@@ -34,6 +56,11 @@ class SensitiveDataFilter(logging.Filter):
         return tuple([self.mask_sensitive_msg(arg) for arg in args])
 
     def mask_sensitive_msg(self, message):
+        """
+        method to mask sensitive data
+        :param message: message to mask
+        :return: clean sensitive message
+        """
         # mask sensitive data in multi record.args
         if isinstance(message, dict):
             return self.mask_sensitive_args(message)
