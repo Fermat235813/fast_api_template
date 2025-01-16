@@ -16,6 +16,10 @@ pydantic-settings = "^2.7.1"
 python-decouple = "^3.8"
 alembic = "^1.14.0"
 greenlet = "^3.1.1"
+passlib = "^1.7.4"
+python-jose = "^3.3.0"
+pydantic = "^2.10.5"
+update = "^0.0.1"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.8.4"
