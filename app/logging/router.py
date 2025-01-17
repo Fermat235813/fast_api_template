@@ -20,7 +20,7 @@ log_router = APIRouter()
 
 
 @log_router.get("/logging/get_all")
-async def get_logging_queue() -> Queue:
+async def get_logging_queue():
     """
     Returns the logs queue
     """

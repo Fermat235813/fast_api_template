@@ -22,7 +22,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from app.logging.exceptions import http_exc_500_unexpected_error
 from app.logging.schemas import RequestLog, ErrorLog
 from app.logging.models import RequestInfo
-from app.logging.service import get_logger
+from app.logging.config import logger
 
 
 def log_request(request: Request) -> None:
@@ -42,7 +42,7 @@ def log_request(request: Request) -> None:
         body=request_info.body,
         headers=request_info.headers,
     )
-    get_logger().info(request_log.dict())
+    logger.info(request_log.dict())
 
 
 def log_error(uuid: str, response_body: dict) -> None:
@@ -56,8 +56,8 @@ def log_error(uuid: str, response_body: dict) -> None:
         req_id=uuid,
         error_message=response_body["error_message"],
     )
-    get_logger().error(error_log.dict())
-    get_logger().error(traceback.format_exc())
+    logger.error(error_log.dict())
+    logger.error(traceback.format_exc())
 
 
 class LogMiddleware(BaseHTTPMiddleware):

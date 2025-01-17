@@ -14,9 +14,9 @@ import sys
 from app.config.service import settings
 from app.logging.service import QueueHandler
 
+
 logger = logging.getLogger("app_logger")
 
-#### File handler ####
 def define_file_handler() -> logging.FileHandler:
     """
     method for creating a file handler
@@ -28,8 +28,6 @@ def define_file_handler() -> logging.FileHandler:
         file_handler = logging.NullHandler
     return file_handler
 
-
-### Console Handler ####
 def define_console_handler() -> logging.StreamHandler:
     """
     method for creating a console handler
@@ -41,8 +39,6 @@ def define_console_handler() -> logging.StreamHandler:
         console_handler = logging.NullHandler
     return console_handler
 
-
-### Queue Handler
 def define_queue_handler() -> QueueHandler:
     """
     method for creating a queue handler

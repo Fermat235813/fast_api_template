@@ -16,7 +16,7 @@ from logging import LogRecord
 
 from app.config.service import settings
 from app.logging.models import LogListEntry
-from app.logging.config import logger
+
 
 
 class LoggingQueue:
@@ -74,11 +74,3 @@ class QueueHandler(logging.Handler):
         entry = LogListEntry("",record.levelname, record.msg,
                    record.filename, record.funcName,record.module)
         logging_queue.add_element(entry)
-
-
-def get_logger() -> logging.Logger:
-    """
-    Method to get logger
-    :return: current Logger
-    """
-    return logger
