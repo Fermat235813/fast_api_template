@@ -1,10 +1,32 @@
+"""AbstractSettings
+
+Class to define configuration.
+
+classes:
+
+    * AbstractSettings - base settings class
+
+Classification: Unclassified
+Autor: Lothar Janssen
+"""
 import decouple
 
 from pydantic_settings import BaseSettings
-from app.config.constants import PROJECT_DESCRIPTION, TAGS_METADATA
+from app.constants import TAGS_METADATA
 
+PROJECT_DESCRIPTION = """
+API based on REST. 🚀
+
+## Description
+
+coming soon
+
+"""
 
 class AbstractSettings(BaseSettings):
+    """
+    Definition of configuration items.
+    """
     TITLE: str = "TEMPLATE"
     VERSION: str = "0.1.0"
     DESCRIPTION: str | None = PROJECT_DESCRIPTION
@@ -46,12 +68,22 @@ class AbstractSettings(BaseSettings):
     LOG_QUEUE: bool = decouple.config("LOG_QUEUE", cast=bool)
     LOG_QUEUE_MAX_SIZE: int = decouple.config("LOG_QUEUE_MAX_SIZE", cast=int)
 
+    JWT_TOKEN_PREFIX: str = decouple.config("JWT_TOKEN_PREFIX", cast=str)
+    JWT_SECRET_KEY: str = decouple.config("JWT_SECRET_KEY", cast=str)
+    JWT_SUBJECT: str = decouple.config("JWT_SUBJECT", cast=str)
+    JWT_MIN: int = decouple.config("JWT_MIN", cast=int)
+    JWT_HOUR: int = decouple.config("JWT_HOUR", cast=int)
+    JWT_DAY: int = decouple.config("JWT_DAY", cast=int)
+    JWT_ACCESS_TOKEN_EXPIRATION_TIME: int = JWT_MIN * JWT_HOUR * JWT_DAY
+
+    # JWT Token
+
 
     @property
     def set_app_attributes(self) -> dict[str, str | bool | None]:
         """
-        Set all `FastAPI` class' attributes with the custom
-        values defined in `CoreSettings`.
+        Set all `FastAPI` class' attributes with the custom values defined in `CoreSettings`.
+        :return: dict[str, str | bool | None] of attributes
         """
         return {
             "openapi_tags": self.OPENAPI_TAGS,  # type: ignore
@@ -66,3 +98,4 @@ class AbstractSettings(BaseSettings):
             "openapi_prefix": self.OPENAPI_PREFIX,
             "api_prefix": self.API_PREFIX,
         }
+
