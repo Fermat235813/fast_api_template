@@ -1,11 +1,9 @@
-from logging.config import fileConfig
-
 from sqlalchemy import engine_from_config
 from sqlalchemy.ext.asyncio import AsyncEngine
 from sqlalchemy.pool import NullPool
 from sqlalchemy.engine import Connection
 
-from app.config.utils import define_async_postgres_url
+from app.config.constants import define_async_postgres_url
 from app.models import Base
 from alembic import context
 
